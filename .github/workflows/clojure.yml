@@ -18,9 +18,18 @@ jobs:
         uses: DeLaGuardo/setup-clojure@11.0
         with: 
          cli: 1.10.1.693
-      - name: Run the build process with Docker
+      - name: Cache clojure dependencies
+        uses: actions/cache@v3
+        with:
+         path: |
+            ~/.m2
+         key: cljdeps-${{ hashFiles('deps.edn') }}
+         restore-keys: cljdeps-
+      - name: start postgres with docker and run tests
         uses: addnab/docker-run-action@v3
         with:
           image: postgres
           options: |
             -v ${{ github.workspace }}/migrations/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
+          run: |
+            clojure -M:test
