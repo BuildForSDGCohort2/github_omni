@@ -11,15 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    services:
-      postgres:
-         image: postgres
-         env:
-          POSTGRES_USER: admin
-          POSTGRES_PASSWORD: admin
-         ports: 
-           - 5432:5432
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,7 +25,12 @@ jobs:
             ~/.m2
          key: cljdeps-${{ hashFiles('deps.edn') }}
          restore-keys: cljdeps-
-      - name: show pwd
-        run:  ls
+      - name: start db container
+        uses: isbang/compose-action@v1.4.1
+        with:
+         compose-file: "./omniward.yml"
+         down-flags: "--volumes"
+         services: |
+           db
       - name: Execute clojure code
         run: clojure -M:test
