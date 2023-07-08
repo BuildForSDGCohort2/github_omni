@@ -32,5 +32,7 @@ jobs:
          down-flags: "--volumes"
          services: |
            db
+      - name: show dir
+        run: ls
       - name: Execute clojure code
         run: clojure -M:test
