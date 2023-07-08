@@ -19,8 +19,8 @@ jobs:
           POSTGRES_PASSWORD: admin
          ports: 
            - 5432:5432
-         volumes: 
-           - /migrations/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
+         options: >-
+          --mount type=bind,source=${PWD}/migrations/10-init.sql,target=/docker-entrypoint-initdb.d/10-init.sql
 
     steps:
       - name: Checkout
