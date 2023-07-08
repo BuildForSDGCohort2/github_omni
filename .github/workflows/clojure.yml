@@ -19,8 +19,6 @@ jobs:
           POSTGRES_PASSWORD: admin
          ports: 
            - 5432:5432
-         volumes: 
-           - /migrations/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
 
     steps:
       - name: Checkout
@@ -36,5 +34,7 @@ jobs:
             ~/.m2
          key: cljdeps-${{ hashFiles('deps.edn') }}
          restore-keys: cljdeps-
+      - name: run db migrations
+        run: psql -U admin -f ${{ github.workspace }}/migrations/10-init.sql
       - name: Execute clojure code
         run: clojure -M:test
