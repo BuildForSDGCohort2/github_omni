@@ -28,11 +28,9 @@ jobs:
       - name: start db container
         uses: isbang/compose-action@v1.4.1
         with:
-         compose-file: "./omniward.yml"
+         compose-file: "./omniward.yaml"
          down-flags: "--volumes"
          services: |
            db
-      - name: show dir
-        run: ls
       - name: Execute clojure code
         run: clojure -M:test
