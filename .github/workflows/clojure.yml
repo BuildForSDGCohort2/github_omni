@@ -34,7 +34,7 @@ jobs:
             ~/.m2
          key: cljdeps-${{ hashFiles('deps.edn') }}
          restore-keys: cljdeps-
-      - name: run db migrations
-        run: psql -U admin -f ${{ github.workspace }}/migrations/10-init.sql
+      - name: show pwd
+        run:  ls
       - name: Execute clojure code
         run: clojure -M:test
