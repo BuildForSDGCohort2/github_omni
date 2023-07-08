@@ -21,6 +21,8 @@ jobs:
           options: |
             -v ${{ github.workspace }}/migrations/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
             -p 5432:5432
+            -e POSTGRES_USER=admin
+            -e POSTGRES_PASSWORD=admin
       - name: Install clojure cli
         uses: DeLaGuardo/setup-clojure@11.0
         with: 
