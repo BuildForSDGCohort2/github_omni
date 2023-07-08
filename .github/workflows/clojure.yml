@@ -14,6 +14,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+      - name: Install clojure cli
+        uses: DeLaGuardo/setup-clojure@11.0
+        with: 
+         cli: 1.10.1.693
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
