@@ -28,7 +28,7 @@ jobs:
       - name: start postgres with docker and run tests
         uses: addnab/docker-run-action@v3
         with:
-          image: postgres
+          image: rymndhng/clojure-dev-container
           options: |
             -v ${{ github.workspace }}/migrations/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
           run: |
